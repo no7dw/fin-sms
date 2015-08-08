@@ -10,14 +10,15 @@
     "sms"
   ],
   "dependencies": {
-    "async": "*",
+    "async": "^1.2.1",
     "hiredis": "^0.1.17",
     "moment": "^2.10.0",
-
-    "querystring": "*"
+    "querystring": "^0.2.0",
+    "superagent": "^1.3.0"
   },
   "devDependencies": {
     "assert": "^1.3.0",
+    "should": "^5.2.0",
     "mocha": "^2.2.1"
   },
   "author": "no7david@gmail.com",

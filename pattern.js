@@ -2,6 +2,7 @@
 module.exports = {
 
   capcha:function(){
+    var code = "";
     for (var i = 0; i < 6; i++) {
     code += Math.floor(Math.random() * 10);
   }
