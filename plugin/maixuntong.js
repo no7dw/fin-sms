@@ -1,4 +1,6 @@
 var querystring = require('querystring');
+var request = require('superagent');
+var _ = require('underscore');
 
 MaiXunTong = (function() {
   function MaiXunTong(config) {
@@ -9,26 +11,39 @@ MaiXunTong = (function() {
   MaiXunTong.prototype.send = function (phone, message, cb) {
     console.log('### send', phone, message);
     var self = this;
-    if (true) {
-      console.log('### dev env, message not send');
-      return cb(null, null);
-    }
 
     //麦讯通请求url参数
     var urlObject = {
-      "UserID": "",
-      "Account": "",
-      "Password": "",
+      "UserID": this.config.UserID,
+      "Account": this.config.Account,
+      "Password":this.config.Password,
       "Phones": phone + ';', //分号不能省略
       "Content": message,
       "SendTime": "",
       "SendType": 1,
-      "PostFixNumber": ""
+      "PostFixNumber" : ""
     };
-
+    var url = self.urlPre + querystring.stringify(urlObject);
+    console.log('self.config',self.config);
+    console.log("$$$ url",url);
+    if (process.env.PROD) {
+      console.log('### dev env, message not send');
+      return cb(null, null);
+    }
     request
-      .get(self.config.urlPre + querystring.stringify(urlObject))
+      .get(url)
       .end(function (err, res) {
+        //success res
+        /*
+         <?xml version="1.0" encoding="utf-8"?>
+         <ROOT xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="JobSendedDescription">
+         <RetCode>Sucess</RetCode>
+         <JobID>171681123</JobID>
+         <OKPhoneCounts>1</OKPhoneCounts>
+         <StockReduced>1</StockReduced>
+         <ErrPhones>;</ErrPhones>
+         </ROOT>
+        * */
         console.log('send result', res.text);
         var sendResult = /Sucess/.test(res.text);
         if (!err && sendResult) {

@@ -7,7 +7,11 @@
 //var maiXunTong = new Plugin('maixutong');
 
 var MaiXunTong = require('./maixuntong');
-var mxtConfig = {};
+var mxtConfig = {
+  "UserID": "",
+  "Account": "",
+  "Password": ""
+};
 var maiXunTongObj = new MaiXunTong(mxtConfig);
 
 module.exports.send = function(phone, message ,callback){
@@ -15,12 +19,10 @@ module.exports.send = function(phone, message ,callback){
   if(phoneForLuoSiMao.test(phone)){
     console.log('maixuntong');
     maiXunTongObj.send(phone, message,callback);
-    callback(null, null);
   }
   else
   {
     console.log('$$ luosimao');
     maiXunTongObj.send(phone, message,callback);
-    callback(null, null);
   }
 };

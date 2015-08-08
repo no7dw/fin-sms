@@ -3,6 +3,7 @@
  */
 var should = require('should');
 var SMS = require("../index");
+var ms = require('ms');
 
 var config = {
   company: 'finPortfolio',
@@ -11,10 +12,9 @@ var config = {
 
 var sms = new SMS(config);
 describe("test send and verify the message !", function () {
-
+  this.timeout(ms('10s'));
   it("check the send message !", function (done) {
     sms.sendMessage("18680493001" , 'upp', function (err, result) {
-      console.log(result);
       should.not.exist(err);
       //result.code.should.be.equal(0);
       done();
