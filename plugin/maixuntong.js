@@ -24,9 +24,7 @@ MaiXunTong = (function() {
       "PostFixNumber" : ""
     };
     var url = self.urlPre + querystring.stringify(urlObject);
-    console.log('self.config',self.config);
-    console.log("$$$ url",url);
-    if (process.env.PROD) {
+    if (process.env.RUN_TEST) {//string
       console.log('### dev env, message not send');
       return cb(null, null);
     }
@@ -52,7 +50,7 @@ MaiXunTong = (function() {
           //todo : emit an error
           console.log('send message fail');
         }
-        cb(err, sendResult);
+        cb(err, sendResult);//true //false
       });
   };
   return MaiXunTong;
