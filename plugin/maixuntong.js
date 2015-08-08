@@ -15,9 +15,9 @@ maixunTong.prototype.send=function(cb){
     var urlPre = 'http://www.mxtong.net.cn/GateWay/Services.asmx/DirectSend?';
     //麦讯通请求url参数
     var urlObject = {
-      "UserID": "966523",
-      "Account": "admin",
-      "Password": "ZC825N",
+      "UserID": "",
+      "Account": "",
+      "Password": "",
       "Phones": phone + ';', //分号不能省略
       "Content": message,
       "SendTime": "",
