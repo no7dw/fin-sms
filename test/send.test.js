@@ -12,7 +12,7 @@ var config = {
 
 var sms = new SMS(config);
 describe("test send and verify the message !", function () {
-  this.timeout(ms('10s'));
+  this.timeout(ms('5s'));
   it("check the send message !", function (done) {
     sms.sendMessage("18680493001" , 'upp', function (err, result) {
       should.not.exist(err);

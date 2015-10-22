@@ -1,28 +1,25 @@
 /**
  * Created by dengwei on 8/8/15.
  */
-//defend = require('./defend');
-//luoSiMao = require('./luosimao');
-//var Plugin = require('./plugin');
-//var maiXunTong = new Plugin('maixutong');
 
-var MaiXunTong = require('./maixuntong');
-var mxtConfig = {
-  "UserID": "",
-  "Account": "",
-  "Password": ""
-};
-var maiXunTongObj = new MaiXunTong(mxtConfig);
+function Plugins(pluginName) {
+  this.pluginName = pluginName;
+  if (this.pluginName == null) {
+    this.pluginName = 'maixuntong';//null then use default
+  }
+  var pluginObj = require("./" + this.pluginName);
+  this.plugin = new pluginObj({});
+  console.log('init plugins', pluginName, this.plugin);
+}
 
-module.exports.send = function(phone, message ,callback){
-  var phoneForLuoSiMao = /^(133|189|155|177|181)\d{8}$/;
-  if(phoneForLuoSiMao.test(phone)){
-    console.log('maixuntong');
-    maiXunTongObj.send(phone, message,callback);
-  }
-  else
-  {
-    console.log('$$ luosimao');
-    maiXunTongObj.send(phone, message,callback);
-  }
+Plugins.prototype.sendMessage = function (phone, message, callback) {
+  console.log('use plugin', this.pluginName);
+  this.plugin.send(phone, message, callback);
 };
+
+//Plugins.prototype.send = function () {
+//  return this.plugin.send.apply(this.plugin, arguments);
+//};
+
+
+module.exports = Plugins;

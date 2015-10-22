@@ -2,11 +2,17 @@ var querystring = require('querystring');
 var request = require('superagent');
 var _ = require('underscore');
 
+var mxtConfig = {
+  "UserID": "",
+  "Account": "",
+  "Password": ""
+};
+
 MaiXunTong = (function() {
   function MaiXunTong(config) {
     //麦讯通请求url前缀
     this.urlPre = 'http://www.mxtong.net.cn/GateWay/Services.asmx/DirectSend?';
-    this.config = config;
+    this.config = config || mxtConfig;
   };
   MaiXunTong.prototype.send = function (phone, message, cb) {
     console.log('### send', phone, message);

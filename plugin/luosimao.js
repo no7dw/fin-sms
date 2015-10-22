@@ -1,10 +1,12 @@
+var querystring = require('querystring');
+var request = require('superagent');
 
-function luoSiMao(config){
+function luoSiMao(config) {
   this.config = config;
   //config.key
 };
 
-luoSiMao.prototype.send=function(cb){
+luoSiMao.prototype.send = function (phone, message, cb) {
   var postData = {
     agent: false,
     rejectUnauthorized: false,
@@ -15,6 +17,9 @@ luoSiMao.prototype.send=function(cb){
   var key = this.config.key;
   var content = querystring.stringify(postData);
 
+  console.log("==============### luosimao ###==============");
+  console.log(MESSAGE_HOST, key, phone, message, content);
+
   request.post(MESSAGE_HOST + '/v1/send.json')
     .set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Content-Length', content.length)
@@ -22,10 +27,13 @@ luoSiMao.prototype.send=function(cb){
     .send(content)
     .end(function (err, res) {
       if (!err && /ok/.test(res.text)) {
-        sails.log.info('============================send message success=============================');
+        console.log('============================send message success=============================');
+        cb();
       } else {
-        sails.log.error('send message fail');
+        console.log('send message fail');
+        cb(err);
       }
+
     });
-  };
-  exports = luoSiMao;
+};
+module.exports = luoSiMao;
