@@ -34,6 +34,7 @@ MaiXunTong = (function() {
       console.log('### dev env, message not send');
       return cb(null, null);
     }
+    console.log("### send url", url);
     request
       .get(url)
       .end(function (err, res) {
@@ -51,12 +52,14 @@ MaiXunTong = (function() {
         console.log('send result', res.text);
         var sendResult = /Sucess/.test(res.text);
         if (!err && sendResult) {
-          console.log('-------------------------send message success-----------------------------');
+          console.log('============================send message success=============================');
+          cb(null);//true //false
         } else {
           //todo : emit an error
-          console.log('send message fail');
+          console.log('send message fail', err);
+          cb({msg:err || 'send message fail'});
         }
-        cb(err, sendResult);//true //false
+
       });
   };
   return MaiXunTong;

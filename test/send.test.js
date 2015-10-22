@@ -14,10 +14,8 @@ var sms = new SMS(config);
 describe("test send and verify the message !", function () {
   this.timeout(ms('5s'));
   it("check the send message !", function (done) {
-    sms.sendMessage("18680493001" , 'upp', function (err, result) {
-      should.not.exist(err);
-      //result.code.should.be.equal(0);
-      done();
+    sms.send("127.0.0.1", "18680493001" , 'hello message', function (err, result) {
+      done(err);
     });
 
   });

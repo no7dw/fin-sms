@@ -1,6 +1,15 @@
 module.exports = {
-  config: function () {
-
+  config:  {
+    "luosimao":{
+      "UserID": "",
+      "Account": "",
+      "Password": ""
+    },
+    "maixuntong":{
+      "UserID": "",
+      "Account": "",
+      "Password": ""
+    }
   },
   companySign: function () {
     return this.config.company;

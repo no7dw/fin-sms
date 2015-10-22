@@ -31,7 +31,7 @@ luoSiMao.prototype.send = function (phone, message, cb) {
         cb();
       } else {
         console.log('send message fail');
-        cb(err);
+        cb({msg:err || 'send message fail'});
       }
 
     });

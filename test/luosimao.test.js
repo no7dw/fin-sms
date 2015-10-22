@@ -5,9 +5,12 @@ var config = {
 };
 var sender = new lsm(config);
 
-describe("test luosimao send and verify the message !", function () {
+describe.skip("test luosimao send and verify the message !", function () {
   this.timeout(ms('5s'));
   it("check luosimao send message !", function (done) {
-    done()
+    sender.send('18680493001' , 'hello' , function(err, result){
+      done(err);
+    });
+
   })
 })
